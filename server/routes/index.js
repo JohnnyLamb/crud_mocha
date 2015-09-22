@@ -2,13 +2,12 @@ var express = require('express');
 var router = express.Router();
 var Item = require('../models/items');
 
-router.get('/items',function(req,res,next){
+router.get('/',function(req,res,next){
   res.render('index');
 });
 
-
 router.get('/items', function(req, res, next) {
-  Item.find(function(err, data) {
+  Item.find({},function(err, data) {
     if (err) {
       res.json({
         'message': err
@@ -20,9 +19,7 @@ router.get('/items', function(req, res, next) {
 });
 
 router.get('/item/:id', function(req, res, next) {
-  Item.find({
-    _id: req.params.id
-  }, function(err, data) {
+  Item.findById(req.params.id,function(err, data) {
     if (err) {
       res.json({
         'message': err
@@ -33,10 +30,10 @@ router.get('/item/:id', function(req, res, next) {
   });
 });
 
-router.post('/items/:name/:location', function(req, res, next) {
+router.post('/items', function(req, res, next) {
   var newItem = new Item({
-    name: req.params.name,
-    location: req.params.location
+    name: req.body.name,
+    location: req.body.location
   });
   newItem.save(function(err, data) {
     if (err) {
@@ -49,18 +46,12 @@ router.post('/items/:name/:location', function(req, res, next) {
   });
 });
 
-router.put('/item/:id/:name/:location', function(req, res, next) {
-  var query = {
-    _id: req.params.id
-  };
+router.put('/item/:id/', function(req, res, next) {
   var update = {
     name: req.params.name,
     location: req.params.location
   };
-  var option = {
-    new: true
-  };
-  Item.findOneAndUpdate(query, update, option, function(err, data) {
+  Item.findByIdAndUpdate(req.params.id,update,function(err, data) {
     if (err) {
       res.json({
         'message': err
@@ -70,12 +61,8 @@ router.put('/item/:id/:name/:location', function(req, res, next) {
     }
   });
 });
-
-
 router.delete('/item/:id', function(req, res, next) {
-  Item.remove({
-    id: req.params.id
-  }, function(err, data) {
+  Item.findByIdAndRemove(req.params.id,function(err, data) {
     if (err) {
       res.json({
         'message': err
@@ -85,7 +72,5 @@ router.delete('/item/:id', function(req, res, next) {
     }
   });
 });
-
-
 
 module.exports = router;

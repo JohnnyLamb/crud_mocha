@@ -66,7 +66,7 @@ describe('Items', function() {
 
   it('should add SINGLE item on /item/:id POST',function(done){
     chai.request(server)
-      .post('/items/chair/livingroom')
+      .post('/items/')
       .end(function(err,res){
         res.should.have.status(200);
         res.should.be.json;
