@@ -1,0 +1,44 @@
+{% extends 'layout.html' %}
+
+{% block title %}{% endblock %}
+
+
+{% block content %}
+
+    <div class="container">
+  <form id="new-exercise">
+  <h1>Add an Item</h1>
+    <div class="form-group">
+      <input type="text" class="form-control" id="name" placeholder="name" required>
+    </div>
+    <div class="form-group">
+      <input type="text" class="form-control" id="location" placeholder="location" required>
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+  </form>
+
+   <div id="all">
+
+      <h2>All Items</h2>
+
+      <div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>location</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+
+
+
+
+  </div>
+
+{% endblock %}
